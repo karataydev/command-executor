@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'command-executor-${{env.VERSION}}-all.jar'
-          path: app/build/libs/*-all.jar
+          path: command-executor/build/libs/*-all.jar
 
       - name: 'Create Release'
         if: contains(github.ref, 'v')
