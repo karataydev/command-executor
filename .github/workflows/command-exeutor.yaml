@@ -190,19 +190,19 @@ jobs:
 
       - name: 'Get Release URL'
         if: contains(github.ref, 'v')
-        uses: actions/download-artifact@v2-preview
+        uses: actions/download-artifact@v4
         with:
           name: 'upload_url.txt'
 
+
       - name: 'Get Upload URL'
         if: contains(github.ref, 'v')
-        run: |
-          echo "::set-env name=UPLOAD_URL::$(cat upload_url.txt)"
+        run: echo "UPLOAD_URL=$(cat upload_url.txt)" >> $GITHUB_ENV
         shell: bash
 
       - name: 'Publish Windows Image'
         if: success()
-        uses: actions/upload-artifact@v2-preview
+        uses: actions/upload-artifact@v4
         with:
           name: 'simple-socket-fn-logger-${{env.VERSION}}-windows.exe'
           path: 'simple-socket-fn-logger-${{env.VERSION}}-all.exe'
