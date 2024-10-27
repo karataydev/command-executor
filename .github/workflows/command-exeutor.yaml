@@ -27,8 +27,7 @@ jobs:
           ./gradlew build
 
       - name: 'Get Version Number'
-        run: |
-          echo "::set-env name=VERSION::$(./gradlew properties -q | grep "version:" | awk '{print $2}')"
+        run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: 'Publish JAR'
         uses: actions/upload-artifact@v4
@@ -111,8 +110,7 @@ jobs:
           gu install native-image
 
       - name: 'Get Version Number'
-        run: |
-          echo "::set-env name=VERSION::$(./gradlew properties -q | grep "version:" | awk '{print $2}')"
+        run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
 
       - name: 'Get JAR Artifact'
         uses: actions/download-artifact@v4
