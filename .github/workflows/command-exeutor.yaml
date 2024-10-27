@@ -180,7 +180,7 @@ jobs:
         shell: cmd
         env:
           JAVA_HOME: ./graalvm-community-openjdk-21.0.2+13.1
-          run: |
+        run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
           ./graalvm-community-openjdk-21.0.2+13.1/bin/native-image -jar command-executor-${{env.VERSION}}-all.jar windows/command-executor.exe
 
