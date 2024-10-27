@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = "command-executor"
-include("app")
+include("command-executor")
