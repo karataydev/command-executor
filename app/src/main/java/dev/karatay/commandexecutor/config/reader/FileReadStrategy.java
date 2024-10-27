@@ -10,9 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.karatay.commandexecutor.config.model.CommandElement;
 import dev.karatay.commandexecutor.config.model.Config;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @AllArgsConstructor
 class FileReadStrategy implements ConfigReadStrategy {
     
@@ -33,7 +31,8 @@ class FileReadStrategy implements ConfigReadStrategy {
 			var config = new Config(configMap);
 			return Optional.of(config);
 		} catch (Exception e) {
-			log.debug("Error reading configuration file: {}", configPath, e);
+			System.err.print("Error reading configuration file: " + configPath);
+			e.printStackTrace();
 			return Optional.empty();
 		}
 	}

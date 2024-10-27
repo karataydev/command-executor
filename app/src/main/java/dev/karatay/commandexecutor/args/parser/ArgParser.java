@@ -3,9 +3,7 @@ package dev.karatay.commandexecutor.args.parser;
 import dev.karatay.commandexecutor.args.model.CommandArgs;
 import dev.karatay.commandexecutor.error.CommandErrors;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 public class ArgParser {
 	// args from stdin
@@ -25,7 +23,6 @@ public class ArgParser {
 				commandArgs.getUserArgs().add(arg);
 			}
 		}
-		log.debug("parsed CommandArgs: {}", commandArgs);
 		if (commandArgs.getCommand() == null) {
 			throw CommandErrors.error("Command not found in the args.");
 		}

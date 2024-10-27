@@ -1,6 +1,8 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+  	id("org.graalvm.buildtools.native") version "0.10.3"
+
 }
 
 repositories {
@@ -20,14 +22,11 @@ dependencies {
 	// lombok annotation
 	compileOnly(libs.lombok)
 	annotationProcessor(libs.lombok)
-
-	// slf4j
-	implementation(libs.slf4j)
-
-	implementation(libs.logback.classic)
-	implementation(libs.logback.core)
+	
 	implementation(libs.jackson)
 }
+
+version = "0.0.1"
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
@@ -59,5 +58,26 @@ tasks {
 
     build {
         dependsOn(fatJar)
+    }
+}
+
+
+graalvmNative {
+    binaries {
+        named("main") {
+			useFatJar.set(true)
+
+            imageName.set("comExecutor")
+            mainClass.set("dev.karatay.commandexecutor.CommandExecutorApp")
+            buildArgs.add("-O4")
+            buildArgs.add("-H:ReflectionConfigurationFiles=${rootProject.projectDir}/app/src/main/resources/reflection-config.json")
+        }
+        named("test") {
+            buildArgs.add("-O0")
+        }
+    }
+    binaries.all {
+		resources.autodetect()
+        buildArgs.add("--verbose")
     }
 }

@@ -9,9 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.karatay.commandexecutor.config.model.CommandElement;
 import dev.karatay.commandexecutor.config.model.Config;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @AllArgsConstructor
 class StringReadStrategy implements ConfigReadStrategy {
     
@@ -31,7 +29,8 @@ class StringReadStrategy implements ConfigReadStrategy {
 			var config = new Config(configMap);
 			return Optional.of(config);
 		} catch (Exception e) {
-			log.error("Error parsing JSON configuration: {}", jsonConfig, e);
+			System.err.print("Error parsing JSON configuration: " + jsonConfig);
+			e.printStackTrace();
 			return Optional.empty();
 		}
 	}
