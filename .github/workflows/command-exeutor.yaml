@@ -106,10 +106,6 @@ jobs:
           distribution: 'graalvm'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Install Native Image Plugin'
-        run: |
-          gu install native-image
-
       - name: 'Get Version Number'
         run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
 
