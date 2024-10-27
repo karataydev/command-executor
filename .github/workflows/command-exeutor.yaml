@@ -48,6 +48,7 @@ jobs:
             Initial release
           draft: false
           prerelease: false
+          token: ${{secrets.GITHUB_TOKEN}}
 
       - name: 'Upload Release Asset'
         if: contains(github.ref, 'v')
