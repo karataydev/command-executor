@@ -119,14 +119,14 @@ jobs:
 
       - name: 'Build Native Image'
         run: |
-          native-image -jar command-executor-${{env.VERSION}}-all.jar ${{matrix.label}}/command-executor
+          native-image -jar command-executor-${{env.VERSION}}-all.jar command-executor-${{matrix.enabled}}
 
       - name: 'Publish Native Image'
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: '${{matrix.label}}/command-executor'
-          path: '${{matrix.label}}/command-executor'
+          name: 'command-executor-${{matrix.enabled}}'
+          path: 'command-executor-${{matrix.enabled}}'
 
       - name: 'Release Native Image Asset'
         if: success() && contains(github.ref, 'v')
@@ -136,8 +136,8 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{env.UPLOAD_URL}}
-          asset_name: '${{matrix.label}}/command-executor'
-          asset_path: '${{matrix.label}}/command-executor'
+          asset_name: 'command-executor-${{matrix.enabled}}'
+          asset_path: 'command-executor-${{matrix.enabled}}'
           asset_content_type: application/octet-stream
   
 
@@ -182,7 +182,7 @@ jobs:
           JAVA_HOME: ./graalvm-community-openjdk-21.0.2+13.1
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-          ./graalvm-community-openjdk-21.0.2+13.1/bin/native-image -jar command-executor-${{env.VERSION}}-all.jar windows/command-executor.exe
+          ./graalvm-community-openjdk-21.0.2+13.1/bin/native-image -jar command-executor-${{env.VERSION}}-all.jar command-executor.exe
 
       - name: 'Get Release URL'
         if: contains(github.ref, 'v')
@@ -200,8 +200,8 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: 'windows/command-executor.exe'
-          path: 'windows/command-executor.exe'
+          name: 'command-executor.exe'
+          path: 'command-executor.exe'
 
       - name: 'Release Windows Image Asset'
         if: success() && contains(github.ref, 'v')
@@ -211,6 +211,6 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{env.UPLOAD_URL}}
-          asset_name: 'windows/command-executor.exe'
-          asset_path: 'windows/command-executor.exe'
+          asset_name: 'command-executor.exe'
+          asset_path: 'command-executor.exe'
           asset_content_type: application/octet-stream
