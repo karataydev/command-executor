@@ -58,7 +58,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{steps.create_release.outputs.upload_url}}
-          asset_path: app/build/libs/command-executor-${{env.VERSION}}-all.jar
+          asset_path: build/libs/command-executor-${{env.VERSION}}-all.jar
           asset_name: command-executor-${{env.VERSION}}-all.jar
           asset_content_type: application/java-archive
 
@@ -96,15 +96,8 @@ jobs:
       - name: 'Setup Java 21'
         uses: actions/setup-java@v4
         with:
-          distribution: 'oracle'
+          distribution: 'fraal'
           java-version: 21
-
-      - name: 'Setup GraalVM Environment'
-        uses: graalvm/setup-graalvm@v1
-        with:
-          java-version: '21'
-          distribution: 'graalvm'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Get Version Number'
         run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
