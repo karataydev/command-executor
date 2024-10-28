@@ -167,6 +167,8 @@ jobs:
           choco install visualstudio2017-workload-vctools
 
       - name: 'Get Version Number'
+        env:
+          JAVA_HOME: ./graalvm-community-openjdk-21.0.2+13.1
         run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
         shell: bash
 
