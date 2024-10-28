@@ -119,14 +119,14 @@ jobs:
 
       - name: 'Build Native Image'
         run: |
-          native-image -jar command-executor-${{env.VERSION}}-all.jar command-executor-${{matrix.enabled}}
+          native-image -jar command-executor-${{env.VERSION}}-all.jar command-executor-${{matrix.label}}
 
       - name: 'Publish Native Image'
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: 'command-executor-${{matrix.enabled}}'
-          path: 'command-executor-${{matrix.enabled}}'
+          name: 'command-executor-${{matrix.label}}'
+          path: 'command-executor-${{matrix.label}}'
 
       - name: 'Release Native Image Asset'
         if: success() && contains(github.ref, 'v')
@@ -136,8 +136,8 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           upload_url: ${{env.UPLOAD_URL}}
-          asset_name: 'command-executor-${{matrix.enabled}}'
-          asset_path: 'command-executor-${{matrix.enabled}}'
+          asset_name: 'command-executor-${{matrix.label}}'
+          asset_path: 'command-executor-${{matrix.label}}'
           asset_content_type: application/octet-stream
   
 
@@ -167,8 +167,7 @@ jobs:
           choco install visualstudio2017-workload-vctools
 
       - name: 'Get Version Number'
-        run: |
-          echo "::set-env name=VERSION::$(./gradlew properties -q | grep "version:" | awk '{print $2}')"
+        run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
         shell: bash
 
       - name: 'Get JAR Artifact'
