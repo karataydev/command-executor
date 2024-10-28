@@ -15,8 +15,7 @@ public class LinkExecutor implements Executor {
     public void execute() {
         commandElement.validate();
         var url = formatUrl(commandElement);
-        String proccessCommand = commandToRun(url);
-        var pb = new ProcessBuilder(proccessCommand);
+        var pb = buildProcess(url);
         try {
             pb.start();
         } catch (Exception ex) {
@@ -32,12 +31,12 @@ public class LinkExecutor implements Executor {
         return url;
     }
 
-    private String commandToRun(String url) {
+    private ProcessBuilder buildProcess(String url) {
         var osType = OSType.getOSType();
         return switch (osType) {
-            case Windows -> "cmd /c start " + url;
-            case Linux -> "xgd-open " + url;
-            default -> "open " + url;
+            case Windows -> new ProcessBuilder("cmd", "/c", "start", url);
+            case Linux -> new ProcessBuilder("xdg-open", url);
+            default -> new ProcessBuilder("open", url);
         };
     }
 }
