@@ -172,8 +172,9 @@ jobs:
         run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_ENV
         shell: bash
 
+
       - name: 'Get JAR Artifact'
-        uses: actions/download-artifact@v2-preview
+        uses: actions/download-artifact@v4
         with:
           name: 'command-executor-${{env.VERSION}}-all.jar'
 
