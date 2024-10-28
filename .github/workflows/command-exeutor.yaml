@@ -164,7 +164,7 @@ jobs:
 
       - name: 'Set up Visual C Build Tools Workload for Visual Studio 2017 Build Tools'
         run: |
-          choco install visualstudio2017-workload-vctools
+          choco install visualstudio2022-workload-vctools
 
       - name: 'Get Version Number'
         env:
