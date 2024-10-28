@@ -184,7 +184,7 @@ jobs:
           JAVA_HOME: ./graalvm-community-openjdk-21.0.2+13.1
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-          ./graalvm-community-openjdk-21.0.2+13.1/bin/native-image -jar command-executor-${{env.VERSION}}-all.jar command-executor.exe
+          ./graalvm-community-openjdk-21.0.2+13.1/bin/native-image -jar command-executor-${{env.VERSION}}-all.jar command-executor
 
       - name: 'echo it'
         run: ls
